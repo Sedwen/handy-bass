@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gallery | Handy Bass</title>
+  <link rel="stylesheet" href="style.css">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  		<meta name="description" content="Handy Bass - Bathroom and kitchen fitting, tiling, plastering and handyman services in Burnley and surrounding areas. Free quotes available.">
+  			
+</head>
+
+<body>
+
+<div id="header">Loading...</div>
+
+<section aria-labelledby="gallery-heading">
+	<div class="container">
+  <h1 id="gallery-heading">Our work</h1>
+
+  <p class="services-intro">
+    A selection of our recent bathroom renovations, kitchen installations, and home improvements across Burnley.
+  </p>
+
+  <div class="gallery">
+  <figure>
+    <img src="images/bathroom.jpg" alt="Bathroom renovation in Burnley with freestanding bath and modern tiling" loading="lazy" width="400" height="300">
+    <figcaption>Full bathroom renovation – Burnley</figcaption>
+  </figure>
+
+  <figure>
+    <img src="images/shower.jpg" alt="Walk-in shower installation with modern tiling and heated towel rail in Burnley" loading="lazy" width="400" height="300">
+    <figcaption>Walk-in shower installation, tiling, & heated towel rail – Burnley</figcaption>
+  </figure>
+
+  <figure>
+    <img src="images/sink.jpg" alt="Bathroom sink and vanity installation with illuminated mirror in Colne" loading="lazy" width="400" height="300">
+    <figcaption>Bathroom sink and vanity installation with illuminated mirror - Colne</figcaption>
+  </figure>
+
+  <figure>
+    <img src="images/kitchen.jpg" alt="Modern kitchen installation in Burnley with fitted units and appliances" loading="lazy" width="400" height="300">
+    <figcaption>Full kitchen installation with appliances – Burnley</figcaption>
+  </figure>
+
+  <figure>
+    <img src="images/living.jpg" alt="Media wall, fireplace and chimney renovation in Nelson" loading="lazy" width="400" height="300">
+    <figcaption>Fireplace & chimney renovation – Nelson</figcaption>
+  </figure>
+</div>
+
+<div class="gallery-cta">
+  <p>Like what you see? Get a free quote today.</p>
+  <a href="contact.html" class="btn">Request a Quote</a>
+</div>
+ 
+</section>
+
+<div id="footer"></div>
+
+<a href="https://wa.me/447541945617?text=Hi%20I%27d%20like%20a%20quote"
+   class="whatsapp-float"
+   target="_blank"
+   rel="noopener noreferrer">
+   <img src="images/whatsapp.png" alt="Chat on WhatsApp">
+</a>
+
+<script src="header.js"></script>
+<script src="footer.js"></script>
+
+<div id="lightbox" class="lightbox">
+  <button class="nav prev">&#10094;</button>
+  <img id="lightbox-img" src="" alt="">
+  <button class="nav next">&#10095;</button>
+</div>
+
+<script>
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+const figures = document.querySelectorAll('.gallery figure');
+const images = document.querySelectorAll('.gallery img');
+const captions = document.querySelectorAll('.gallery figcaption');
+
+let currentIndex = 0;
+let scrollY = 0;
+let activeThumb = null;
+
+// OPEN LIGHTBOX
+figures.forEach((figure, index) => {
+  figure.addEventListener('click', () => {
+    currentIndex = index;
+    activeThumb = images[index];
+
+    // hide thumbnail to prevent ghosting
+    activeThumb.classList.add('hidden');
+
+    scrollY = window.scrollY;
+    document.body.style.top = `-${scrollY}px`;
+    document.body.classList.add('no-scroll');
+
+    lightbox.classList.add('active');
+
+    // delay image load 1 frame (CRITICAL for Chrome)
+    requestAnimationFrame(() => {
+      showImage();
+    });
+  });
+});
+
+// SHOW IMAGE
+function showImage() {
+  const tempImg = new Image();
+  tempImg.src = images[currentIndex].src;
+
+  tempImg.onload = () => {
+    lightboxImg.src = tempImg.src;
+    lightboxImg.alt = images[currentIndex].alt;
+
+    // update caption inside lightbox
+    updateCaption();
+  };
+}
+
+// CAPTION HANDLING
+function updateCaption() {
+  let caption = captions[currentIndex].textContent;
+
+  let existing = document.querySelector('.lightbox-caption');
+  if (!existing) {
+    existing = document.createElement('div');
+    existing.className = 'lightbox-caption';
+    lightbox.appendChild(existing);
+  }
+
+  existing.textContent = caption;
+}
+
+// NEXT / PREV
+function nextImage() {
+  images[currentIndex].classList.remove('hidden');
+  currentIndex = (currentIndex + 1) % images.length;
+  activeThumb = images[currentIndex];
+  activeThumb.classList.add('hidden');
+  showImage();
+}
+
+function prevImage() {
+  images[currentIndex].classList.remove('hidden');
+  currentIndex = (currentIndex - 1 + images.length) % images.length;
+  activeThumb = images[currentIndex];
+  activeThumb.classList.add('hidden');
+  showImage();
+}
+
+// CLOSE
+lightbox.addEventListener('click', () => closeLightbox());
+
+document.querySelector('.next').addEventListener('click', (e) => {
+  e.stopPropagation();
+  nextImage();
+});
+
+document.querySelector('.prev').addEventListener('click', (e) => {
+  e.stopPropagation();
+  prevImage();
+});
+
+// KEYBOARD
+document.addEventListener('keydown', (e) => {
+  if (!lightbox.classList.contains('active')) return;
+
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowRight') nextImage();
+  if (e.key === 'ArrowLeft') prevImage();
+});
+
+// SWIPE
+let startX = 0;
+
+lightbox.addEventListener('touchstart', (e) => {
+  startX = e.touches[0].clientX;
+});
+
+lightbox.addEventListener('touchend', (e) => {
+  let endX = e.changedTouches[0].clientX;
+
+  if (startX - endX > 50) nextImage();
+  if (endX - startX > 50) prevImage();
+});
+
+// CLOSE FUNCTION
+function closeLightbox() {
+  lightbox.classList.remove('active');
+
+  document.body.classList.remove('no-scroll');
+  document.body.style.top = '';
+
+  window.scrollTo(0, scrollY);
+
+  // restore thumbnail visibility
+  if (activeThumb) {
+    activeThumb.classList.remove('hidden');
+  }
+
+  // clear image (prevents flicker next open)
+  lightboxImg.src = '';
+}
+</script>
+
+</body>
+</html>

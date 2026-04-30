@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FAQ | Handy Bass</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Frequently asked questions about bathroom fitting, kitchen installations, plumbing, tiling and handyman services in Burnley.">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div id="header">Loading...</div>
+
+<section class="faq-section">
+	<div class="container">
+  <h1 id="faq-heading">Frequently Asked Questions</h1>
+
+  <p class="faq-intro">
+    Here are answers to some of the most common questions about our bathroom, kitchen, plumbing, and handyman services in Burnley and surrounding areas.
+  </p>
+
+  <div class="faq-accordion">
+
+  <h2 class="faq-category">General</h2>
+
+  <div class="faq-item">
+    <button class="faq-question">Do you offer free quotes?</button>
+    <div class="faq-answer">
+      <p>Yes — all quotes are completely free and no obligation. We can usually provide an estimate after a quick discussion or site visit depending on the job.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question">What areas do you cover?</button>
+    <div class="faq-answer">
+      <p>We are based in Burnley and cover surrounding areas including Nelson, Colne, Padiham, Brierfield, and nearby towns across Lancashire.</p>
+    </div>
+  </div>
+
+  <h2 class="faq-category">Bathrooms & Kitchens</h2>
+
+  <div class="faq-item">
+    <button class="faq-question">Do you do full bathroom renovations?</button>
+    <div class="faq-answer">
+      <p>Yes. We handle full bathroom renovations from start to finish including rip-out, plumbing, tiling, plastering, fitting, and finishing touches.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question">Can you supply materials?</button>
+    <div class="faq-answer">
+      <p>Yes — we can supply all materials if required, or work with customer-supplied products if preferred.</p>
+    </div>
+  </div>
+
+  <h2 class="faq-category">Plumbing</h2>
+
+  <div class="faq-item">
+    <button class="faq-question">Do you offer emergency plumbing?</button>
+    <div class="faq-answer">
+      <p>We can assist with urgent plumbing issues depending on availability. Contact us directly for the fastest response.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question">How do you price your work?</button>
+    <div class="faq-answer">
+      <p>Smaller jobs may be charged at a day rate, while larger projects are usually quoted as a fixed price. All pricing is agreed before work starts.</p>
+    </div>
+  </div>
+
+  <h2 class="faq-category">Other</h2>
+
+  <div class="faq-item">
+    <button class="faq-question">Do you require a deposit?</button>
+    <div class="faq-answer">
+      <p>Yes, typically a 25%–40% deposit is required to secure bookings and cover materials for larger projects.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question">Are you insured?</button>
+    <div class="faq-answer">
+      <p>Yes, we are fully insured for all work carried out.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question">Do you guarantee your work?</button>
+    <div class="faq-answer">
+      <p>Yes — all workmanship is covered by a 12-month guarantee (labour only).</p>
+    </div>
+  </div>
+
+</div>
+
+  <div class="services-cta">
+    <p>Still got questions?</p>
+    <a href="contact.html" class="btn">Get in Touch</a>
+  </div>
+ </div>
+ 
+</section>
+
+<div id="footer"></div>
+
+<a href="https://wa.me/447541945617?text=Hi%20I%27d%20like%20a%20quote"
+   class="whatsapp-float"
+   target="_blank"
+   rel="noopener noreferrer">
+   <img src="images/whatsapp.png" alt="Chat on WhatsApp">
+</a>
+
+<script src="header.js"></script>
+<script src="footer.js"></script>
+
+<script>
+document.querySelectorAll(".faq-question").forEach(button => {
+  button.addEventListener("click", () => {
+    const item = button.parentElement;
+
+    // toggle single item
+    item.classList.toggle("active");
+  });
+});
+</script>
+
+</body>
+</html>

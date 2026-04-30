@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://handybass.co.uk/sitemap.xml

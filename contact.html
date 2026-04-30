@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact | Handy Bass</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  	<meta name="description" content="Handy Bass - Bathroom and kitchen fitting, tiling, plastering and handyman services in Burnley and surrounding areas. Free quotes available.">
+  		
+</head>
+
+<body>
+
+<div id="header">Loading...</div>
+
+<section>
+	<div class="container">
+  <h1>Contact Handy Bass</h1>
+
+<form onsubmit="sendWhatsApp(); return false;">
+
+  <div class="form-group">
+    <label for="name">Full Name</label>
+    <input 
+      type="text" 
+      id="name" 
+      name="name"
+      placeholder="e.g. John Smith" 
+      required
+      minlength="2"
+      autocomplete="name">
+  </div>
+
+  <div class="form-group">
+  <label for="phone">Phone Number</label>
+  <input 
+    type="tel" 
+    id="phone" 
+    name="phone"
+    placeholder="e.g. 07541 945617" 
+    required
+    inputmode="numeric"
+    autocomplete="tel">
+</div>
+
+  <div class="form-group">
+  <label for="postcode">Postcode</label>
+  <input 
+    type="text" 
+    id="postcode" 
+    name="postcode"
+    placeholder="e.g. BB11 1AA" 
+    required
+    autocomplete="postal-code">
+</div>
+
+  <div class="form-group">
+    <label for="message">Describe the Job</label>
+    <textarea 
+      id="message" 
+      name="message"
+      placeholder="Briefly describe the work you need (e.g. bathroom renovation, tiling, repairs)" 
+      required
+      minlength="10"
+      rows="5"></textarea>
+  </div>
+
+  <button type="submit" id="submitBtn" class="btn">
+  Send via WhatsApp
+</button>
+
+</form>
+
+<div class="contact-actions">
+  <a href="tel:+447541945617" class="btn secondary">Call Now</a>
+  <a href="mailto:handybass@proton.me" class="btn secondary">Send Email</a>
+</div>
+
+  <p><strong>Phone:</strong> 07541945617</p>
+  <p><strong>Email:</strong> handybass@proton.me</p>
+  
+  
+  <p><em>Please be aware that our work hours are Mon-Fri, 9-5 and that any enquiries made during this time may not receive an immediate response. We always aim to respond to all enquiries by the end of the working day.</em></p>
+  
+   </div>
+   
+  
+</section>
+
+<section>
+	<div class="container">
+  <h3>Service Areas</h3>
+  <p>
+    Burnley, Padiham, Nelson, Colne, Accrington, Bacup,
+    Rawtenstall, Clitheroe, and surrounding areas.
+  </p>
+   </div>
+   
+</section>
+
+<div id="footer"></div>
+
+<script>
+let isSubmitting = false;
+
+document.addEventListener("DOMContentLoaded", function() {
+
+  const form = document.querySelector("form");
+  const btn = document.getElementById("submitBtn");
+  const modal = document.getElementById("successModal");
+  const closeBtn = document.getElementById("closeModal");
+
+  form.addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    if (isSubmitting) return;
+
+    let name = document.getElementById('name').value.trim();
+    let phone = document.getElementById('phone').value.trim();
+    let postcode = document.getElementById('postcode').value.trim().toUpperCase();
+    let message = document.getElementById('message').value.trim();
+
+    if (!name || !phone || !postcode || !message) {
+      alert("Please fill in all fields.");
+      return;
+    }
+
+    let phoneDigits = phone.replace(/\D/g, '');
+    if (phoneDigits.length < 10 || phoneDigits.length > 11) {
+      alert("Please enter a valid UK phone number.");
+      return;
+    }
+
+    isSubmitting = true;
+    btn.disabled = true;
+
+    let url = "https://wa.me/447541945617?text="
+      + "Name: " + encodeURIComponent(name) + "%0a"
+      + "Phone: " + encodeURIComponent(phone) + "%0a"
+      + "Postcode: " + encodeURIComponent(postcode) + "%0a"
+      + "Job: " + encodeURIComponent(message);
+
+    window.open(url, '_blank');
+
+    // Show modal
+    modal.style.display = "flex";
+
+    // Reset form
+    form.reset();
+
+    // Unlock after short delay (prevents spam)
+    setTimeout(() => {
+      isSubmitting = false;
+      btn.disabled = false;
+    }, 1500);
+  });
+
+  // Close modal
+  closeBtn.addEventListener("click", function() {
+    modal.style.display = "none";
+  });
+
+  // PHONE FORMAT
+  document.getElementById('phone').addEventListener('input', function(e) {
+    let value = e.target.value.replace(/\D/g, '');
+
+    if (value.startsWith('44')) {
+      value = '0' + value.slice(2);
+    }
+
+    if (value.length > 5) {
+      value = value.slice(0,5) + ' ' + value.slice(5,11);
+    }
+
+    e.target.value = value;
+  });
+
+  // POSTCODE FORMAT
+  document.getElementById('postcode').addEventListener('input', function(e) {
+    let value = e.target.value.toUpperCase().replace(/\s+/g, '');
+
+    if (value.length > 3) {
+      value = value.slice(0, -3) + ' ' + value.slice(-3);
+    }
+
+    e.target.value = value;
+  });
+
+});
+</script>
+
+<a href="https://wa.me/447541945617?text=Hi%20I%27d%20like%20a%20quote"
+   class="whatsapp-float"
+   target="_blank"
+   rel="noopener noreferrer">
+   <img src="images/whatsapp.png" alt="Chat on WhatsApp">
+</a>
+
+<script src="header.js"></script>
+<script src="footer.js"></script>
+
+<div id="successModal" class="modal">
+  <div class="modal-content">
+    <p>Thank you for your enquiry.<br>We aim to respond by the end of the working day.</p>
+    <button id="closeModal" class="btn">Close</button>
+  </div>
+</div>
+
+</body>
+</html>
